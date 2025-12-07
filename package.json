@@ -11,9 +11,12 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.12",
     "next": "16.0.7",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "sass": "^1.94.2",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@types/node": "^20",
