@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, type ReactNode } from "react";
+import { ErrorBox } from "../ErrorBox";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -30,11 +31,11 @@ export class ErrorBoundary extends Component<
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div>
-          <h1>Something went wrong.</h1>
-          <button onClick={() => this.setState({ hasError: false })}>
-            Try again
-          </button>
+        <div style={{ padding: "var(--spacing-xl)" }}>
+          <ErrorBox
+            message="Something went wrong. Please try again."
+            onRetry={() => this.setState({ hasError: false })}
+          />
         </div>
       );
     }
