@@ -1,8 +1,10 @@
 import { z } from "zod";
 
-export const threatLevelSchema = z.enum(["Low", "Medium", "High", "Critical"]);
+export const THREAT_LEVELS = ["Low", "Medium", "High", "Critical"] as const;
+export const SPIRIT_STATUSES = ["Active", "Captured"] as const;
 
-export const spiritStatusSchema = z.enum(["Active", "Captured"]);
+export const threatLevelSchema = z.enum(THREAT_LEVELS);
+export const spiritStatusSchema = z.enum(SPIRIT_STATUSES);
 
 export const spiritSchema = z.object({
   id: z.string(),

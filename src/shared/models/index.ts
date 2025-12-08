@@ -5,6 +5,8 @@ export {
   captureResponseSchema,
   threatLevelSchema,
   spiritStatusSchema,
+  THREAT_LEVELS,
+  SPIRIT_STATUSES,
 } from "./spirits";
 
 export type {
