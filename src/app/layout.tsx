@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ErrorBoundary } from "@/shared/ui";
+import "@/shared/styles/theme.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </body>
     </html>
   );
 }
