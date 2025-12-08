@@ -1,0 +1,108 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--color-background);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+
+.threat {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 0.5rem 0 0 0.5rem;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.threatLow {
+  background-color: var(--threat-low);
+  box-shadow: 0 0 8px var(--threat-low);
+}
+
+.threatMedium {
+  background-color: var(--threat-medium);
+  box-shadow: 0 0 8px var(--threat-medium);
+}
+
+.threatHigh {
+  background-color: var(--threat-high);
+  box-shadow: 0 0 8px var(--threat-high);
+}
+
+.threatCritical {
+  background-color: var(--threat-critical);
+  box-shadow: 0 0 12px var(--threat-critical);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.75rem;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.location {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.threatLevel {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.status {
+  color: var(--color-text-secondary);
+}
+
+.captureButton {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-background);
+  background: var(--color-primary);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

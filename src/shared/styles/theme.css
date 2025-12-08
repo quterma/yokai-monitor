@@ -44,4 +44,13 @@ body {
   --threat-medium: #eab308;
   --threat-high: #f97316;
   --threat-critical: #ef4444;
+
+  /* Secondary colors */
+  --color-text-secondary: #6b7280;
+  --color-primary-hover: #0060df;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
