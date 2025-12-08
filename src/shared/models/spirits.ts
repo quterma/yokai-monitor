@@ -10,8 +10,6 @@ export const spiritSchema = z.object({
   location: z.string(),
   threatLevel: threatLevelSchema,
   status: spiritStatusSchema,
-  createdAt: z.string().datetime(),
-  updatedAt: z.string().datetime(),
 });
 
 export const spiritsListSchema = z.array(spiritSchema);

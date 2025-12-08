@@ -15,3 +15,7 @@ export type {
   CaptureRequest,
   CaptureResponse,
 } from "./spirits";
+
+export { spiritThreatChangedEventSchema } from "./sse-events";
+
+export type { SpiritThreatChangedEvent } from "./sse-events";
