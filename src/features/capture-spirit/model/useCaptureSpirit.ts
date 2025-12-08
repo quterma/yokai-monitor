@@ -1,0 +1,84 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_SPIRITS_URL, retryDelayMs } from "@/shared/config";
+import type {
+  CaptureRequest,
+  CaptureResponse,
+  SpiritsList,
+} from "@/shared/models";
+import { captureRequestSchema, captureResponseSchema } from "@/shared/models";
+import { SPIRITS_QUERY_KEY } from "@/entities/spirit/api/queryKeys";
+
+type CaptureSpiritContext = {
+  previousSpirits?: SpiritsList;
+};
+
+async function captureSpirit(spiritId: string): Promise<CaptureResponse> {
+  const requestBody: CaptureRequest = { spiritId };
+
+  captureRequestSchema.parse(requestBody);
+
+  const response = await fetch(API_SPIRITS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(
+      errorData.error || `Failed to capture spirit: ${response.statusText}`
+    );
+  }
+
+  const data = await response.json();
+  const validatedData = captureResponseSchema.parse(data);
+
+  return validatedData;
+}
+
+export function useCaptureSpirit() {
+  const queryClient = useQueryClient();
+
+  return useMutation<CaptureResponse, Error, string, CaptureSpiritContext>({
+    mutationFn: captureSpirit,
+    retry: 3,
+    retryDelay: retryDelayMs,
+
+    onMutate: async (spiritId: string) => {
+      await queryClient.cancelQueries({ queryKey: SPIRITS_QUERY_KEY });
+
+      const previousSpirits =
+        queryClient.getQueryData<SpiritsList>(SPIRITS_QUERY_KEY);
+
+      if (previousSpirits) {
+        const optimisticSpirits = previousSpirits.map((spirit) =>
+          spirit.id === spiritId
+            ? { ...spirit, status: "Captured" as const }
+            : spirit
+        );
+
+        queryClient.setQueryData<SpiritsList>(
+          SPIRITS_QUERY_KEY,
+          optimisticSpirits
+        );
+      }
+
+      return { previousSpirits };
+    },
+
+    onError: (_error, _spiritId, context) => {
+      if (context?.previousSpirits) {
+        queryClient.setQueryData<SpiritsList>(
+          SPIRITS_QUERY_KEY,
+          context.previousSpirits
+        );
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: SPIRITS_QUERY_KEY });
+    },
+  });
+}

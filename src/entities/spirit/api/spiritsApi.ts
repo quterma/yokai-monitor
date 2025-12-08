@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { spiritsListSchema } from "@/shared/models";
 import type { SpiritsList } from "@/entities/spirit/model";
+import { SPIRITS_QUERY_KEY } from "./queryKeys";
 
 async function fetchSpiritsList(): Promise<SpiritsList> {
   const response = await fetch("/api/spirits");
@@ -17,7 +18,7 @@ async function fetchSpiritsList(): Promise<SpiritsList> {
 
 export function useSpiritsList() {
   return useQuery({
-    queryKey: ["spirits"],
+    queryKey: SPIRITS_QUERY_KEY,
     queryFn: fetchSpiritsList,
   });
 }
