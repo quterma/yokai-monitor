@@ -4,6 +4,7 @@ import { useSpiritsList } from "@/entities/spirit/api";
 import { SpiritCard } from "@/entities/spirit/ui";
 import type { ThreatLevel } from "@/entities/spirit/model";
 import { LoadingSpinner, ErrorBox } from "@/shared/ui";
+import { useSpiritsRealtime } from "@/features/realtime-updates";
 import styles from "./MonitoringDashboard.module.scss";
 
 export function MonitoringDashboard() {
@@ -14,6 +15,8 @@ export function MonitoringDashboard() {
     isError,
     error,
   } = useSpiritsList();
+
+  useSpiritsRealtime();
 
   const isLoadingState = isLoading || isFetching;
 
