@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/shared/api";
 import { ErrorBoundary } from "@/shared/ui";
 import "@/shared/styles/theme.css";
 import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "Yokai Monitor",
-  description: "Monitor yokai activity",
-};
 
 export default function RootLayout({
   children,
@@ -16,7 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ErrorBoundary>{children}</ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <ErrorBoundary>{children}</ErrorBoundary>
+        </QueryClientProvider>
       </body>
     </html>
   );

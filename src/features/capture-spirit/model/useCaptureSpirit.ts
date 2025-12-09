@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { API_SPIRITS_URL, retryDelayMs } from "@/shared/config";
+import { API_SPIRITS_URL } from "@/shared/config";
 import type {
   CaptureRequest,
   CaptureResponse,
@@ -43,8 +43,7 @@ export function useCaptureSpirit() {
 
   return useMutation<CaptureResponse, Error, string, CaptureSpiritContext>({
     mutationFn: captureSpirit,
-    retry: 3,
-    retryDelay: retryDelayMs,
+    retry: false,
 
     onMutate: async (spiritId: string) => {
       await queryClient.cancelQueries({ queryKey: SPIRITS_QUERY_KEY });
@@ -68,6 +67,22 @@ export function useCaptureSpirit() {
       return { previousSpirits };
     },
 
+    onSuccess: (data) => {
+      const previousSpirits =
+        queryClient.getQueryData<SpiritsList>(SPIRITS_QUERY_KEY);
+
+      if (previousSpirits) {
+        const updatedSpirits = previousSpirits.map((spirit) =>
+          spirit.id === data.spirit.id ? data.spirit : spirit
+        );
+
+        queryClient.setQueryData<SpiritsList>(
+          SPIRITS_QUERY_KEY,
+          updatedSpirits
+        );
+      }
+    },
+
     onError: (_error, _spiritId, context) => {
       if (context?.previousSpirits) {
         queryClient.setQueryData<SpiritsList>(
@@ -75,10 +90,6 @@ export function useCaptureSpirit() {
           context.previousSpirits
         );
       }
-    },
-
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: SPIRITS_QUERY_KEY });
     },
   });
 }

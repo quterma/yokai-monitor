@@ -6,14 +6,14 @@ import styles from "./CaptureButton.module.scss";
 
 type CaptureButtonProps = {
   spirit: Spirit;
+  onClick?: () => void;
   onError?: (error: Error) => void;
-  onSuccess?: () => void;
 };
 
 export function CaptureButton({
   spirit,
+  onClick,
   onError,
-  onSuccess,
 }: CaptureButtonProps) {
   const { mutate, isPending } = useCaptureSpirit();
 
@@ -23,19 +23,15 @@ export function CaptureButton({
   const handleClick = () => {
     if (isDisabled) return;
 
+    onClick?.();
+
     mutate(spirit.id, {
-      onSuccess: () => {
-        onSuccess?.();
-      },
       onError: (error) => {
         onError?.(error instanceof Error ? error : new Error(String(error)));
       },
     });
   };
 
-  // Button has three states: default "Capture", loading "Capturing…", captured "Captured"
-  // Error feedback is handled by ErrorBox in SpiritCard (not on button)
-  // Retry is done by pressing "Capture" again while ErrorBox is visible
   let buttonClass = styles.button;
   let buttonText = "Capture";
 
