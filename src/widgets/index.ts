@@ -1,1 +1,1 @@
-export {};
+export { MonitoringDashboard } from "./monitoring-dashboard";
