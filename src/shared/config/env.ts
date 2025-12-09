@@ -12,4 +12,5 @@ export const API_SPIRITS_URL = "/api/spirits";
 export const API_SPIRITS_STREAM_URL = "/api/spirits/stream";
 export const retryDelayMs = 500;
 export const sseReconnectDelayMs = 2000;
+export const captureDelayMs = 2500;
 export const MOCK_ERROR_RATE = 0.3;

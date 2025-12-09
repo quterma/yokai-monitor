@@ -5,7 +5,8 @@ import {
   captureRequestSchema,
   captureResponseSchema,
 } from "@/shared/models";
-import { MOCK_ERROR_RATE } from "@/shared/config";
+import { MOCK_ERROR_RATE, captureDelayMs } from "@/shared/config";
+import { delay } from "@/shared/lib";
 
 export async function GET() {
   const validatedSpirits = spiritsListSchema.parse(spiritsMock);
@@ -17,6 +18,8 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
 
   const validatedRequest = captureRequestSchema.parse(body);
+
+  await delay(captureDelayMs);
 
   const spirit = spiritsMock.find((s) => s.id === validatedRequest.spiritId);
 
