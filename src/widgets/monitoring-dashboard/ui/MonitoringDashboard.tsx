@@ -2,9 +2,10 @@
 
 import { useSpiritsList } from "@/entities/spirit/api";
 import { SpiritCard } from "@/entities/spirit/ui";
-import type { ThreatLevel } from "@/entities/spirit/model";
 import { LoadingSpinner, ErrorBox } from "@/shared/ui";
 import { useSpiritsRealtime } from "@/features/realtime-updates";
+import { useSpiritsSummary } from "../lib";
+import { SpiritsSummary } from "./SpiritsSummary";
 import styles from "./MonitoringDashboard.module.scss";
 
 export function MonitoringDashboard() {
@@ -17,6 +18,9 @@ export function MonitoringDashboard() {
   } = useSpiritsList();
 
   useSpiritsRealtime();
+
+  const spiritsList = spirits ?? [];
+  const summaryData = useSpiritsSummary(spiritsList);
 
   const isLoadingState = isLoading || isFetching;
 
@@ -49,43 +53,13 @@ export function MonitoringDashboard() {
     );
   }
 
-  const spiritsList = spirits ?? [];
-
-  const threatCounts: Record<ThreatLevel, number> = {
-    Low: 0,
-    Medium: 0,
-    High: 0,
-    Critical: 0,
-  };
-
-  spiritsList.forEach((spirit) => {
-    threatCounts[spirit.threatLevel]++;
-  });
-
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h1 className={styles.title}>Spirit Monitoring Dashboard</h1>
       </header>
 
-      <section className={styles.summary}>
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryLabel}>Low:</span>
-          <span className={styles.summaryValue}>{threatCounts.Low}</span>
-        </div>
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryLabel}>Medium:</span>
-          <span className={styles.summaryValue}>{threatCounts.Medium}</span>
-        </div>
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryLabel}>High:</span>
-          <span className={styles.summaryValue}>{threatCounts.High}</span>
-        </div>
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryLabel}>Critical:</span>
-          <span className={styles.summaryValue}>{threatCounts.Critical}</span>
-        </div>
-      </section>
+      <SpiritsSummary {...summaryData} />
 
       <section className={styles.spiritsList}>
         {spiritsList.map((spirit) => (
