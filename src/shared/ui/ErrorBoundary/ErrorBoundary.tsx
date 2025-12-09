@@ -33,8 +33,8 @@ export class ErrorBoundary extends Component<
       return (
         <div style={{ padding: "var(--spacing-xl)" }}>
           <ErrorBox
-            message="Something went wrong. Please try again."
-            onRetry={() => this.setState({ hasError: false })}
+            error={new Error("Something went wrong. Please try again.")}
+            onClose={() => this.setState({ hasError: false })}
           />
         </div>
       );

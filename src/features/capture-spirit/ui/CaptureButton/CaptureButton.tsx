@@ -15,10 +15,9 @@ export function CaptureButton({
   onError,
   onSuccess,
 }: CaptureButtonProps) {
-  const { mutate, isPending, isError } = useCaptureSpirit();
+  const { mutate, isPending } = useCaptureSpirit();
 
   const isCaptured = spirit.status === "Captured";
-  // Disabled only while pending or already captured. While error - button enabled for retry
   const isDisabled = isPending || isCaptured;
 
   const handleClick = () => {
@@ -34,15 +33,13 @@ export function CaptureButton({
     });
   };
 
-  // Priority: error (if not captured) > loading > captured
-  // Don't show error state for already captured spirits
+  // Button has three states: default "Capture", loading "Capturing…", captured "Captured"
+  // Error feedback is handled by ErrorBox in SpiritCard (not on button)
+  // Retry is done by pressing "Capture" again while ErrorBox is visible
   let buttonClass = styles.button;
   let buttonText = "Capture";
 
-  if (isError && !isCaptured) {
-    buttonClass += ` ${styles["button--error"]}`;
-    buttonText = "Retry";
-  } else if (isPending) {
+  if (isPending) {
     buttonClass += ` ${styles["button--loading"]}`;
     buttonText = "Capturing…";
   } else if (isCaptured) {
