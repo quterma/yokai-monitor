@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "kill-ports": "npx kill-port 3000 3001"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",
