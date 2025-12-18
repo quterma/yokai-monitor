@@ -61,11 +61,18 @@ export function MonitoringDashboard() {
 
       <SpiritsSummary {...summaryData} />
 
-      <section className={styles.spiritsList}>
-        {spiritsList.map((spirit) => (
-          <SpiritCard key={spirit.id} spirit={spirit} />
-        ))}
-      </section>
+      {spiritsList.length === 0 ? (
+        <div className={styles.emptyState}>
+          <p className={styles.emptyTitle}>No spirits found</p>
+          <p className={styles.emptyDescription}>Data is mock/demo</p>
+        </div>
+      ) : (
+        <section className={styles.spiritsList}>
+          {spiritsList.map((spirit) => (
+            <SpiritCard key={spirit.id} spirit={spirit} />
+          ))}
+        </section>
+      )}
     </div>
   );
 }
