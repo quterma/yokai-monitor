@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yokai Monitor
 
-## Getting Started
+Real-time dashboard for monitoring spirit anomalies across Tokyo districts. Displays spirits with threat levels, capture status, and live threat updates via Server-Sent Events.
 
-First, run the development server:
+## Tech Stack
+
+**Core**: Next.js 16 (App Router), React 19, TypeScript
+
+**State & Data**: TanStack Query 5, Zod validation
+
+**Styling**: SCSS Modules, CSS custom properties
+
+**Real-time**: Server-Sent Events (SSE)
+
+**DevOps**: Docker, Docker Compose
+
+## Run Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Run with Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+docker-compose up --build
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+## Demo Flow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **View dashboard** → See spirit cards with threat levels and summary statistics
+2. **Click "Capture"** → Optimistic update, 30% chance of error with rollback
+3. **Wait ~5s** → Threat levels change automatically via SSE with smooth transitions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Architecture
 
-## Deploy on Vercel
+Strict Feature Sliced Design structure: `shared → entities → features → widgets → app`. Next.js Route Handlers provide mock REST API (`/api/spirits`) and SSE endpoint (`/api/spirits/stream`) for real-time threat updates. TanStack Query handles caching and optimistic updates. All data validated with Zod at API boundaries.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Notes**: Mock data, demo-only API
