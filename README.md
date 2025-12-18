@@ -29,7 +29,19 @@ Open [http://localhost:3000](http://localhost:3000)
 docker-compose up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+**→ Open [http://localhost:3000](http://localhost:3000)** in your browser
+
+### Environment Configuration
+
+You can customize behavior via environment variables in `docker-compose.yml`:
+
+```yaml
+environment:
+  - SSE_EVENT_INTERVAL_MS=3000
+  - MOCK_ERROR_RATE=0.5
+```
+
+Key variables: `SSE_EVENT_INTERVAL_MS` (default 5000), `SSE_RECONNECT_DELAY_MS` (default 2000), `CAPTURE_DELAY_MS` (default 2500), `MOCK_ERROR_RATE` (default 0.3). All optional with sensible defaults.
 
 ## Demo Flow
 

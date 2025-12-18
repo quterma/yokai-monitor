@@ -1,5 +1,6 @@
 import { spiritsMock } from "../_mocks";
 import { spiritThreatChangedEventSchema, THREAT_LEVELS } from "@/shared/models";
+import { sseEventIntervalMs } from "@/shared/config";
 
 export async function GET() {
   const encoder = new TextEncoder();
@@ -24,7 +25,7 @@ export async function GET() {
 
         const data = `data: ${JSON.stringify(event)}\n\n`;
         controller.enqueue(encoder.encode(data));
-      }, 5000);
+      }, sseEventIntervalMs);
     },
     cancel() {
       if (intervalId) {

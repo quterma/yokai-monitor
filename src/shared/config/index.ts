@@ -4,6 +4,7 @@ export {
   API_SPIRITS_STREAM_URL,
   retryDelayMs,
   sseReconnectDelayMs,
+  sseEventIntervalMs,
   captureDelayMs,
   MOCK_ERROR_RATE,
-} from "./env";
+} from "./config";

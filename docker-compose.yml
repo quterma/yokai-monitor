@@ -1,3 +1,7 @@
+# Yokai Monitor - Docker Compose
+# After running: docker-compose up
+# → Open http://localhost:3000 in your browser
+
 services:
   web:
     build:
@@ -7,3 +11,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      # Optional: customize behavior (defaults provided)
+      # - SSE_EVENT_INTERVAL_MS=5000
+      # - MOCK_ERROR_RATE=0.3
+      # - CAPTURE_DELAY_MS=2500
