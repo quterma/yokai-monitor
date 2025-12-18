@@ -23,6 +23,29 @@
   }
 }
 
+.iconWrapper {
+  position: absolute;
+  top: var(--spacing-smd);
+  right: var(--spacing-smd);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .threat {
   position: absolute;
   top: 0;
@@ -59,7 +82,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  padding-left: 0.75rem;
 }
 
 .field {
@@ -72,7 +94,7 @@
 .label {
   color: var(--color-text);
   font-weight: 400;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
 }
 
 .name {

@@ -27,6 +27,22 @@ export function SpiritCard({ spirit }: SpiritCardProps) {
 
       <article className={styles.card}>
         <div className={`${styles.threat} ${styles[threatClass]}`} />
+        <div className={styles.iconWrapper}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/images/yokai/${spirit.name}.jpg`}
+            alt=""
+            className={styles.icon}
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (target.src.endsWith(".jpg")) {
+                target.src = `/images/yokai/${spirit.name}.png`;
+              } else {
+                target.src = "/images/yokai/default.png";
+              }
+            }}
+          />
+        </div>
         <div className={styles.content}>
           <div className={styles.field}>
             <span className={styles.label}>Name:</span>
