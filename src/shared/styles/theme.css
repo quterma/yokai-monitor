@@ -26,6 +26,7 @@ body {
   --color-primary: #0070f3;
   --color-error: #e00;
   --color-error-bg: #fee;
+  --color-white: #ffffff;
 
   /* Spacing */
   --spacing-xs: 0.25rem;
