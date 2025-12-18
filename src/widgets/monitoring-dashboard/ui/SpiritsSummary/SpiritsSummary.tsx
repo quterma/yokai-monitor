@@ -15,10 +15,10 @@ type SummaryItemProps = {
 function SummaryItem({ label, value }: SummaryItemProps) {
   return (
     <div className={styles.summaryItem}>
-      <span className={styles.summaryLabel}>{label}:</span>
       <span className={styles.summaryValue} aria-label={`${value} ${label}`}>
         {value}
       </span>
+      <span className={styles.summaryLabel}>{label}</span>
     </div>
   );
 }
