@@ -8,6 +8,17 @@ import { SPIRITS_QUERY_KEY } from "@/entities/spirit/api/queryKeys";
 import type { SpiritsList } from "@/entities/spirit/model";
 import type { SpiritThreatChangedEvent } from "@/shared/models/sse-events";
 
+/**
+ * Subscribes to real-time spirit threat level updates via Server-Sent Events.
+ *
+ * Purpose: Establishes SSE connection to receive live threat changes and updates TanStack Query cache immediately.
+ *
+ * Effects: Updates spirits list cache when SSE events arrive. No return value (side-effect only hook).
+ *
+ * Error behavior: Logs errors to console, closes connection, and auto-reconnects after 2s delay. Reconnection continues until component unmounts.
+ *
+ * Notes: Mock SSE sends random threat changes every 5s. No throttling - cache updates instantly on each event.
+ */
 export function useSpiritsRealtime() {
   const queryClient = useQueryClient();
   const sseClientRef = useRef<SseClient | null>(null);

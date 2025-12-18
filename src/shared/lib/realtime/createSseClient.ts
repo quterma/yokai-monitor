@@ -13,6 +13,17 @@ export interface SseClient {
   close: () => void;
 }
 
+/**
+ * Creates an SSE (Server-Sent Events) client wrapper around native EventSource.
+ *
+ * Purpose: Connects to SSE endpoint, validates incoming events with Zod, and dispatches to handlers.
+ *
+ * Returns: Client object with close() method for cleanup.
+ *
+ * Error behavior: Parse/validation errors logged to console and ignored (connection stays open). Connection errors trigger onError handler, caller handles reconnection.
+ *
+ * Notes: Events validated against SpiritThreatChangedEvent schema. Invalid events don't break the stream.
+ */
 export function createSseClient(
   url: string,
   handlers: SseHandlers = {}

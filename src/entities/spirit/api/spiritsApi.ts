@@ -16,6 +16,17 @@ async function fetchSpiritsList(): Promise<SpiritsList> {
   return validatedData;
 }
 
+/**
+ * Fetches and caches the list of spirits from the API.
+ *
+ * Purpose: Retrieves all spirits with TanStack Query caching and automatic retry logic.
+ *
+ * Returns: Query state with spirits list (data, isLoading, error).
+ *
+ * Error behavior: Retries 3 times with 500ms delay before exposing error to UI.
+ *
+ * Notes: Uses mock API endpoint. Data validated with Zod before returning.
+ */
 export function useSpiritsList() {
   return useQuery({
     queryKey: SPIRITS_QUERY_KEY,

@@ -38,6 +38,17 @@ async function captureSpirit(spiritId: string): Promise<CaptureResponse> {
   return validatedData;
 }
 
+/**
+ * Mutation hook for capturing spirits with optimistic UI updates.
+ *
+ * Purpose: Sends capture request to API with instant UI feedback and proper rollback on failure.
+ *
+ * Returns: Mutation object with mutate function, isPending state, and error handling.
+ *
+ * Error behavior: No automatic retry (retry: false). Rolls back optimistic update and returns error to caller for UI display.
+ *
+ * Notes: Mock API has 30% error rate and 2.5s delay. Optimistic update shows "Captured" immediately, then confirms or reverts.
+ */
 export function useCaptureSpirit() {
   const queryClient = useQueryClient();
 
