@@ -64,36 +64,68 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 0.25rem;
   padding-left: 0.75rem;
+}
+
+.field {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: baseline;
+  font-size: var(--font-size-base);
+}
+
+.label {
+  color: var(--color-text);
+  font-weight: 400;
+  font-size: var(--font-size-sm);
 }
 
 .name {
   margin: 0;
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-name);
 }
 
 .location {
   margin: 0;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-.meta {
-  display: flex;
-  gap: var(--spacing-md);
-  font-size: var(--font-size-sm);
-}
-
-.threatLevel {
-  font-weight: 500;
+  font-size: var(--font-size-base);
+  font-weight: 600;
   color: var(--color-text);
 }
 
+.threatLevel {
+  font-weight: 600;
+}
+
+.threatTextLow {
+  color: var(--threat-low);
+}
+
+.threatTextMedium {
+  color: var(--threat-medium);
+}
+
+.threatTextHigh {
+  color: var(--threat-high);
+}
+
+.threatTextCritical {
+  color: var(--threat-critical);
+}
+
 .status {
-  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.statusActive {
+  color: var(--status-active);
+}
+
+.statusCaptured {
+  color: var(--status-captured);
 }
 
 .captureButton {

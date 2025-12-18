@@ -28,13 +28,29 @@ export function SpiritCard({ spirit }: SpiritCardProps) {
       <article className={styles.card}>
         <div className={`${styles.threat} ${styles[threatClass]}`} />
         <div className={styles.content}>
-          <h3 className={styles.name}>{spirit.name}</h3>
-          <p className={styles.location}>{spirit.location}</p>
-          <div className={styles.meta}>
-            <span className={styles.threatLevel}>
-              Threat: {spirit.threatLevel}
+          <div className={styles.field}>
+            <span className={styles.label}>Name:</span>
+            <h3 className={styles.name}>{spirit.name}</h3>
+          </div>
+          <div className={styles.field}>
+            <span className={styles.label}>Location:</span>
+            <p className={styles.location}>{spirit.location}</p>
+          </div>
+          <div className={styles.field}>
+            <span className={styles.label}>Threat Level:</span>
+            <span
+              className={`${styles.threatLevel} ${styles[`threatText${spirit.threatLevel}`]}`}
+            >
+              {spirit.threatLevel}
             </span>
-            <span className={styles.status}>{spirit.status}</span>
+          </div>
+          <div className={styles.field}>
+            <span className={styles.label}>Status:</span>
+            <span
+              className={`${styles.status} ${styles[`status${spirit.status}`]}`}
+            >
+              {spirit.status}
+            </span>
           </div>
         </div>
         <CaptureButton

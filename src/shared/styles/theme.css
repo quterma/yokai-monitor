@@ -10,6 +10,7 @@
 html,
 body {
   height: 100%;
+  min-width: 440px;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, sans-serif;
@@ -48,9 +49,14 @@ body {
   --threat-high: #f97316;
   --threat-critical: #ef4444;
 
+  /* Status colors */
+  --status-active: #9333ea;
+  --status-captured: #15803d;
+
   /* Secondary colors */
   --color-text-secondary: #6b7280;
   --color-primary-hover: #0060df;
+  --color-name: #1e3a8a;
 
   /* Shadows */
   --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.1);

@@ -23,6 +23,36 @@
   text-transform: capitalize;
 }
 
+.colorLow {
+  color: var(--threat-low);
+  font-weight: 600;
+}
+
+.colorMedium {
+  color: var(--threat-medium);
+  font-weight: 600;
+}
+
+.colorHigh {
+  color: var(--threat-high);
+  font-weight: 600;
+}
+
+.colorCritical {
+  color: var(--threat-critical);
+  font-weight: 600;
+}
+
+.colorActive {
+  color: var(--status-active);
+  font-weight: 600;
+}
+
+.colorCaptured {
+  color: var(--status-captured);
+  font-weight: 600;
+}
+
 .summaryValue {
   font-size: var(--font-size-2xl);
   font-weight: 700;
