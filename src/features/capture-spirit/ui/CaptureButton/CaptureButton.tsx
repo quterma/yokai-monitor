@@ -49,6 +49,13 @@ export function CaptureButton({
       className={buttonClass}
       onClick={handleClick}
       disabled={isDisabled}
+      aria-label={
+        isCaptured
+          ? `${spirit.name} already captured`
+          : isPending
+            ? `Capturing ${spirit.name}`
+            : `Capture ${spirit.name}`
+      }
     >
       {buttonText}
     </button>
