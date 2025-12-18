@@ -4,7 +4,9 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 
   &:hover:not(:disabled) {
     opacity: 0.9;

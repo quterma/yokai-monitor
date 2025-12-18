@@ -56,7 +56,7 @@ export function MonitoringDashboard() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Spirit Monitoring Dashboard</h1>
+        <h1 className={styles.title}>Yokai Monitoring Dashboard</h1>
       </header>
 
       <SpiritsSummary {...summaryData} />
