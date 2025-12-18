@@ -8,12 +8,14 @@ type CaptureButtonProps = {
   spirit: Spirit;
   onClick?: () => void;
   onError?: (error: Error) => void;
+  onSuccess?: () => void;
 };
 
 export function CaptureButton({
   spirit,
   onClick,
   onError,
+  onSuccess,
 }: CaptureButtonProps) {
   const { mutate, isPending } = useCaptureSpirit();
 
@@ -26,6 +28,9 @@ export function CaptureButton({
     onClick?.();
 
     mutate(spirit.id, {
+      onSuccess: () => {
+        onSuccess?.();
+      },
       onError: (error) => {
         onError?.(error instanceof Error ? error : new Error(String(error)));
       },

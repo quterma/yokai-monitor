@@ -9,7 +9,9 @@ import { captureRequestSchema, captureResponseSchema } from "@/shared/models";
 import { SPIRITS_QUERY_KEY } from "@/entities/spirit/api/queryKeys";
 
 type CaptureSpiritContext = {
-  previousSpirits?: SpiritsList;
+  spiritId: string;
+  previousStatus: "Active" | "Captured";
+  previousThreatLevel: "Low" | "Medium" | "High" | "Critical";
 };
 
 async function captureSpirit(spiritId: string): Promise<CaptureResponse> {
@@ -62,6 +64,8 @@ export function useCaptureSpirit() {
       const previousSpirits =
         queryClient.getQueryData<SpiritsList>(SPIRITS_QUERY_KEY);
 
+      const targetSpirit = previousSpirits?.find((s) => s.id === spiritId);
+
       if (previousSpirits) {
         const optimisticSpirits = previousSpirits.map((spirit) =>
           spirit.id === spiritId
@@ -75,7 +79,11 @@ export function useCaptureSpirit() {
         );
       }
 
-      return { previousSpirits };
+      return {
+        spiritId,
+        previousStatus: targetSpirit?.status || "Active",
+        previousThreatLevel: targetSpirit?.threatLevel || "Low",
+      };
     },
 
     onSuccess: (data) => {
@@ -95,11 +103,26 @@ export function useCaptureSpirit() {
     },
 
     onError: (_error, _spiritId, context) => {
-      if (context?.previousSpirits) {
-        queryClient.setQueryData<SpiritsList>(
-          SPIRITS_QUERY_KEY,
-          context.previousSpirits
-        );
+      if (context) {
+        const currentSpirits =
+          queryClient.getQueryData<SpiritsList>(SPIRITS_QUERY_KEY);
+
+        if (currentSpirits) {
+          const rolledBackSpirits = currentSpirits.map((spirit) =>
+            spirit.id === context.spiritId
+              ? {
+                  ...spirit,
+                  status: context.previousStatus,
+                  threatLevel: context.previousThreatLevel,
+                }
+              : spirit
+          );
+
+          queryClient.setQueryData<SpiritsList>(
+            SPIRITS_QUERY_KEY,
+            rolledBackSpirits
+          );
+        }
       }
     },
   });

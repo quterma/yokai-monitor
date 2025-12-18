@@ -73,6 +73,7 @@ export function SpiritCard({ spirit }: SpiritCardProps) {
           spirit={spirit}
           onClick={() => setCaptureError(null)}
           onError={(err) => setCaptureError(err)}
+          onSuccess={() => setCaptureError(null)}
         />
       </article>
     </div>
