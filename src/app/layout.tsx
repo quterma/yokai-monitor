@@ -1,10 +1,16 @@
-"use client";
-
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/shared/api";
-import { ErrorBoundary } from "@/shared/ui";
+import type { Metadata } from "next";
+import { Providers } from "./providers";
 import "@/shared/styles/theme.css";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Yokai Monitor",
+    default: "Yokai Monitor",
+  },
+  description:
+    "Real-time yokai spirit monitoring dashboard for Tokyo anomaly tracking",
+};
 
 export default function RootLayout({
   children,
@@ -14,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryClientProvider client={queryClient}>
-          <ErrorBoundary>{children}</ErrorBoundary>
-        </QueryClientProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
